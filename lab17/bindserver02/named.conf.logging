@@ -1,0 +1,52 @@
+// Logging configuration for BIND DNS Server (Slave)
+// Independent from system logs
+
+logging {
+    // Define log channels
+    channel queries_log {
+        file "/var/log/bind/queries.log" versions 3 size 10m;
+        severity info;
+        print-time yes;
+        print-severity yes;
+        print-category yes;
+    };
+
+    channel general_log {
+        file "/var/log/bind/general.log" versions 3 size 10m;
+        severity info;
+        print-time yes;
+        print-severity yes;
+        print-category yes;
+    };
+
+    channel security_log {
+        file "/var/log/bind/security.log" versions 3 size 10m;
+        severity info;
+        print-time yes;
+        print-severity yes;
+        print-category yes;
+    };
+
+    channel xfer_log {
+        file "/var/log/bind/xfer.log" versions 3 size 10m;
+        severity info;
+        print-time yes;
+        print-severity yes;
+        print-category yes;
+    };
+
+    // Map categories to channels
+    category queries { queries_log; };
+    category general { general_log; };
+    category security { security_log; };
+    category xfer-in { xfer_log; };
+    category xfer-out { xfer_log; };
+    category notify { xfer_log; };
+    
+    // Additional useful categories
+    category client { general_log; };
+    category network { general_log; };
+    category update { general_log; };
+    category config { general_log; };
+    category default { general_log; };
+};
