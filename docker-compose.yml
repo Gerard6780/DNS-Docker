@@ -38,7 +38,7 @@ services:
     mem_limit: 100m
     hostname: dnsserver
     container_name: dnsserver
-    command: ["bash", "-c", "/etc/init.d/rsyslog start && /etc/init.d/ssh start && /etc/init.d/bind9 start && supervisord -n"]
+    command: ["bash", "-c", "mkdir -p /var/cache/bind/logs && chmod 755 /var/cache/bind/logs && chown bind:bind /var/cache/bind/logs && /etc/init.d/rsyslog start && /etc/init.d/ssh start && /etc/init.d/bind9 start && supervisord -n"]
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
