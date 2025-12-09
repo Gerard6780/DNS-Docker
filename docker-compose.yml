@@ -31,29 +31,6 @@ services:
     networks:
       external_net:
         ipv4_address: 10.51.0.20
-    
-  dnsserver2:
-    image: joaniznardo/ubuntum7dnsbind
-    privileged: true
-    mem_limit: 100m
-    hostname: dnsserver2
-    container_name: dnsserver2
-    command: ["bash", "-c", "/etc/init.d/rsyslog start && /etc/init.d/ssh start && /etc/init.d/bind9 start && supervisord -n"]
-    cap_add:
-      - NET_ADMIN
-      - SYS_ADMIN
-    volumes:
-      - ./bindserver02/named.conf:/etc/bind/named.conf
-      - ./bindserver02/named.conf.local:/etc/bind/named.conf.local
-      - ./bindserver01/named.conf.options:/etc/bind/named.conf.options
-      - ./bindserver02/named.conf.logging:/etc/bind/named.conf.logging
-      - ./bindserver02/zones:/etc/bind/zones
-      - ./bindserver02/logs:/var/cache/bind/logs
-    networks:
-      internal_net:
-        ipv4_address: 192.168.51.11
-      external_net:
-        ipv4_address: 10.51.0.11
 
   dnsserver:
     image: joaniznardo/ubuntum7dnsbind
@@ -66,12 +43,12 @@ services:
       - NET_ADMIN
       - SYS_ADMIN
     volumes:
-      - ./bindserver01/named.conf:/etc/bind/named.conf
-      - ./bindserver01/named.conf.local:/etc/bind/named.conf.local
-      - ./bindserver01/named.conf.options:/etc/bind/named.conf.options
-      - ./bindserver01/named.conf.logging:/etc/bind/named.conf.logging
-      - ./bindserver01/zones:/etc/bind/zones
-      - ./bindserver01/logs:/var/cache/bind/logs
+      - ./bind/named.conf:/etc/bind/named.conf
+      - ./bind/named.conf.local:/etc/bind/named.conf.local
+      - ./bind/named.conf.options:/etc/bind/named.conf.options
+      - ./bind/named.conf.logging:/etc/bind/named.conf.logging
+      - ./bind/zones:/etc/bind/zones
+      - ./bind/logs:/var/cache/bind/logs
     networks:
       internal_net:
         ipv4_address: 192.168.51.10
@@ -91,5 +68,3 @@ networks:
       config:
         - subnet: 10.51.0.0/24
           gateway: 10.51.0.1
-
-
