@@ -3,7 +3,7 @@
 //
 
 acl "internal" {
-    192.168.50.0/24;
+    192.168.51.0/24;
     127.0.0.0/8;
 };
 
@@ -15,7 +15,7 @@ view "internal" {
     zone "gerard.test" {
         type slave;
         file "/etc/bind/zones/db.internal";
-        masters { 192.168.50.10; };
+        masters { 192.168.51.10; };
     };
 };
 
@@ -26,6 +26,6 @@ view "external" {
     zone "gerard.test" {
         type slave;
         file "/etc/bind/zones/db.external";
-        masters { 10.50.0.10; };
+        masters { 10.51.0.10; };
     };
 };
